@@ -1,8 +1,12 @@
-const { send } = require('micro')
-const url = require('url')
+const express = require('express');
+const app = express();
 
-module.exports = function (request, response) {
-  const { pathname } = url.parse(request.url)
-  console.log(pathname)
-  send(response, 200, 'Hello World! 👋')
-}
+app.get('/', (req, res) => {
+  const name = process.env.NAME || 'World';
+  res.send(`Hello ${name}! 👋`);
+});
+
+const port = parseInt(process.env.PORT) || 8080;
+app.listen(port, () => {
+  console.log(`helloworld: listening on port ${port}`);
+});
